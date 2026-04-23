@@ -84,6 +84,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.claims.processing</groupId>
+            <artifactId>com.claims.processing.kafka.common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -117,7 +122,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

@@ -20,4 +20,6 @@ public class ClaimsProcessingRequest {
     @NotBlank(message = "Mobile number is required")
     @Pattern(regexp = "\\+\\d{12}", message = "Mobile number must be a 10-digit number starting with country code (Ex.+919876543210)")
     private String mobileNumber;
+
+    private String email;
 }

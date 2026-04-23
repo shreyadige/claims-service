@@ -15,4 +15,5 @@ public class ClaimsProcessingResponse {
     private String claimType;
     private String policyNumber;
     private String mobileNumber;
+    private String email;
 }

@@ -24,6 +24,7 @@ public class ClaimsProcessingEntity {
     private LocalDate claimDate;
     private String customerName;
     private String mobileNumber;
+    private String email;
     //Generates getter and setter methods for all fields
 
 

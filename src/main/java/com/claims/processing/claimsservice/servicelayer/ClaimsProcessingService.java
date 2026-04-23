@@ -7,13 +7,13 @@ import com.claims.processing.claimsservice.dto.ClaimsProcessingRequest;
 import com.claims.processing.claimsservice.dto.ClaimsProcessingResponse;
 import com.claims.processing.claimsservice.dto.PolicyStatusDto;
 import com.claims.processing.claimsservice.entity.ClaimsProcessingEntity;
-import com.claims.processing.claimsservice.events.ClaimCreatedEvent;
-import com.claims.processing.claimsservice.events.ClaimEventProducer;
+import com.claims.processing.claimsservice.events.ClaimCreatedEventProducer;
 import com.claims.processing.claimsservice.exception.ClaimNotFoundException;
 import com.claims.processing.claimsservice.exception.PolicyNotActiveException;
 import com.claims.processing.claimsservice.exception.PolicyNotFoundException;
 import com.claims.processing.claimsservice.exception.ServiceUnavailableException;
 import com.claims.processing.claimsservice.repository.ClaimsProcessingReposiory;
+import com.claims.processing.kafka.common.ClaimCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +45,7 @@ public class ClaimsProcessingService {
     private RestTemplate restTemplate;
 
     @Autowired
-    private ClaimEventProducer claimEventProducer;
+    private ClaimCreatedEventProducer claimEventProducer;
 
     @Value("${policy.service.host}")
     private String serviceHost;
@@ -87,6 +87,9 @@ public class ClaimsProcessingService {
         event.setClaimStatus(entity.getClaimStatus());
         event.setClaimDate(entity.getClaimDate());
         event.setClaimAmount(entity.getClaimAmount());
+        event.setCustomerName(entity.getCustomerName());
+        event.setCustomerEmail(entity.getEmail());
+        event.setCustomerPhone(entity.getMobileNumber());
         return event;
     }
 
@@ -129,6 +132,7 @@ public class ClaimsProcessingService {
         entity.setClaimStatus(ClaimStatus.CREATED.name());
         entity.setCustomerName(request.getCustomerName());
         entity.setMobileNumber(request.getMobileNumber());
+        entity.setEmail(request.getEmail());
         return entity;
     }
 
@@ -143,6 +147,7 @@ public class ClaimsProcessingService {
         response.setClaimDate(entity.getClaimDate().toString());
         response.setCustomerName(entity.getCustomerName());
         response.setMobileNumber(entity.getMobileNumber());
+        response.setEmail(entity.getEmail());
         return response;
     }
 
